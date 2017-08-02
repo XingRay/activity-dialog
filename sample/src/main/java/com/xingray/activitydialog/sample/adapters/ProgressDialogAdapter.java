@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.xingray.activitydialog.DialogAdapter;
-import com.xingray.activitydialog.R;
+import com.xingray.activitydialog.sample.R;
 
 
 /**

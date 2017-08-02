@@ -33,7 +33,8 @@
         android:paddingLeft="15dp"
         android:textColor="#666"
         android:textSize="14sp"
-        tools:text="提示内容"/>
+        tools:text="提示内容"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <View
         android:layout_width="match_parent"

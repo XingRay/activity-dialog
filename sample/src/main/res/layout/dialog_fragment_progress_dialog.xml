@@ -17,7 +17,8 @@
         android:layout_centerInParent="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        tools:ignore="RtlHardcoded,RtlSymmetry">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -31,8 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="14dp"
-            tools:text="正在提交数据"/>
+            android:textSize="14sp"
+            tools:text="正在提交数据"
+            tools:ignore="SpUsage" />
     </LinearLayout>
 
 </RelativeLayout>
