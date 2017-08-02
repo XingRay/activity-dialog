@@ -1,4 +1,4 @@
-package com.xingray.activitydialog.adapters;
+package com.xingray.activitydialog.sample.adapters;
 
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +16,7 @@ import com.xingray.activitydialog.R;
  * Description : xxx
  */
 
+@SuppressWarnings({"WeakerAccess", "RedundantCast"})
 public class TitleContentTwoButtonDialogAdapter extends DialogAdapter {
 
     private CharSequence mTitle;

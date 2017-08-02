@@ -35,12 +35,13 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
         mContext = this.getApplicationContext();
     }
 
+    @SuppressWarnings("RedundantCast")
     protected void initView() {
         setContentView(R.layout.activity_dialog_activity_test);
 
-        tvTest01 = findViewById(R.id.tv_test01);
+        tvTest01 = (TextView) findViewById(R.id.tv_test01);
         tvTest01.setOnClickListener(this);
-        tvTest02 = findViewById(R.id.tv_test02);
+        tvTest02 = (TextView) findViewById(R.id.tv_test02);
     }
 
     protected void loadData() {

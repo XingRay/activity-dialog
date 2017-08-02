@@ -20,6 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnItemClickListener {
 
+    @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     private static final List<Function> functions = Arrays.asList(
             new Function("activity-dialog test", ActivityDialogTestActivity.class)
     );
@@ -86,14 +87,14 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         private OnItemClickListener mOnItemClickListener;
         private final View mParent;
 
-        public FunctionAdapter(View parent, Context context, List<Function> functions) {
+        private FunctionAdapter(View parent, Context context, List<Function> functions) {
             mParent = parent;
             mContext = context;
             mFunctions = functions;
             mInflater = LayoutInflater.from(mContext);
         }
 
-        public void setOnItemClickListener(OnItemClickListener listener) {
+        private void setOnItemClickListener(OnItemClickListener listener) {
             mOnItemClickListener = listener;
         }
 
@@ -122,14 +123,15 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         }
     }
 
+    @SuppressWarnings("RedundantCast")
     private static class FunctionViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvText;
 
-        public FunctionViewHolder(View itemView) {
+        private FunctionViewHolder(View itemView) {
             super(itemView);
 
-            tvText = itemView.findViewById(R.id.tv_text);
+            tvText = (TextView) itemView.findViewById(R.id.tv_text);
         }
     }
 }
