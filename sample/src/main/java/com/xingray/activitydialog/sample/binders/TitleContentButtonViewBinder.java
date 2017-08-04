@@ -1,9 +1,9 @@
-package com.xingray.activitydialog.sample.adapters;
+package com.xingray.activitydialog.sample.binders;
 
 import android.view.View;
 import android.widget.TextView;
 
-import com.xingray.activitydialog.DialogAdapter;
+import com.xingray.activitydialog.ViewBinder;
 import com.xingray.activitydialog.sample.R;
 
 
@@ -17,18 +17,14 @@ import com.xingray.activitydialog.sample.R;
  */
 
 @SuppressWarnings({"WeakerAccess", "RedundantCast"})
-public class TitleContentButtonDialogAdapter extends DialogAdapter {
+public class TitleContentButtonViewBinder extends ViewBinder {
     private CharSequence mTitle;
     private CharSequence mContent;
     private CharSequence mButtonText;
     private View.OnClickListener mListener;
 
-    public TitleContentButtonDialogAdapter() {
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.dialog_fragment_title_content_button;
+    public TitleContentButtonViewBinder() {
+        setContentView(R.layout.dialog_fragment_title_content_button);
     }
 
     @Override
@@ -52,22 +48,22 @@ public class TitleContentButtonDialogAdapter extends DialogAdapter {
         });
     }
 
-    public TitleContentButtonDialogAdapter title(CharSequence title) {
+    public TitleContentButtonViewBinder title(CharSequence title) {
         mTitle = title;
         return this;
     }
 
-    public TitleContentButtonDialogAdapter content(CharSequence content) {
+    public TitleContentButtonViewBinder content(CharSequence content) {
         mContent = content;
         return this;
     }
 
-    public TitleContentButtonDialogAdapter buttonText(CharSequence buttonText) {
+    public TitleContentButtonViewBinder buttonText(CharSequence buttonText) {
         mButtonText = buttonText;
         return this;
     }
 
-    public TitleContentButtonDialogAdapter clickListener(View.OnClickListener listener) {
+    public TitleContentButtonViewBinder clickListener(View.OnClickListener listener) {
         mListener = listener;
         return this;
     }

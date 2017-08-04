@@ -15,13 +15,13 @@ import java.util.Map;
  * {@link HostActivity} get adapter by {@link DialogManager}
  */
 
-public class DialogManager {
+/*package*/ class DialogManager {
     private static volatile DialogManager INSTANCE;
 
     private final Map<Long, ActivityDialog> mDialogs;
 
-
-    public static DialogManager getInstance() {
+    /*package*/
+    static DialogManager getInstance() {
         if (INSTANCE == null) {
             synchronized (DialogManager.class) {
                 if (INSTANCE == null) {
@@ -46,7 +46,7 @@ public class DialogManager {
      * @param code   unique code for {@link ActivityDialog}
      * @param dialog dialog to save
      */
-    public ActivityDialog put(long code, ActivityDialog dialog) {
+    /*package*/ ActivityDialog put(long code, ActivityDialog dialog) {
         synchronized (mDialogs) {
             return mDialogs.put(code, dialog);
         }
@@ -58,7 +58,7 @@ public class DialogManager {
      * @param code unique code for {@link ActivityDialog}
      * @return cached {@link ActivityDialog}
      */
-    public ActivityDialog get(long code) {
+    /*package*/ ActivityDialog get(long code) {
         synchronized (mDialogs) {
             return mDialogs.get(code);
         }
@@ -70,7 +70,7 @@ public class DialogManager {
      * @param code unique code for {@link ActivityDialog}
      * @return previous {@link ActivityDialog} saved by the {@code code}
      */
-    public ActivityDialog remove(long code) {
+    /*package*/ ActivityDialog remove(long code) {
         synchronized (mDialogs) {
             return mDialogs.remove(code);
         }

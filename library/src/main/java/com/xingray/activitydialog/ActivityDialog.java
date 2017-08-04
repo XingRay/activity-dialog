@@ -1,11 +1,11 @@
 package com.xingray.activitydialog;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
@@ -30,46 +30,56 @@ public class ActivityDialog implements DialogInterface {
     private final Context mContext;
 
     /**
+     * layout resource id of dialog's content view to inflate
+     */
+    /*package*/ int mLayoutResId;
+
+    /**
+     * content view of dialog to show
+     */
+    /*package*/ View mContentView;
+
+    /**
      * is dialog will dismiss when click outside of it
      */
-    boolean mCancelable;
+    /*package*/ boolean mCancelable;
 
     /**
      * priority of the dialog
      * higher the value is, more chance the dialog has to show
      */
-    int mPriority;
+    private int mPriority;
 
     /**
      * name of the dialog, if two {@code ActivityDialog} have the same name, the later one will replace
      * the previous one
      */
-    String mName;
+    private String mName;
 
     /**
      * adapter for render UI by given data
      */
-    DialogAdapter mAdapter;
+    /*package*/ ViewBinder mViewBinder;
 
     /**
      * width of the dialog
      */
-    int mWidth;
+    /*package*/ int mWidth;
 
     /**
      * height of the dialog
      */
-    int mHeight;
+    /*package*/ int mHeight;
 
     /**
      * style of dialog
      */
-    int mStyle;
+    private int mStyle;
 
     /**
      * theme of dialog
      */
-    int mTheme;
+    private int mTheme;
 
     /**
      * is dialog showing
@@ -84,7 +94,7 @@ public class ActivityDialog implements DialogInterface {
     /**
      * the host where this dialog actually show at
      */
-    private Activity mHost;
+    private HostActivity mHost;
 
     /**
      * unique code of this dialog, update at
@@ -111,6 +121,8 @@ public class ActivityDialog implements DialogInterface {
         // default values
         mCancelable = true;
         mPriority = 0;
+        mLayoutResId = -1;
+        mContentView = null;
         mName = "";
         mWidth = ViewGroup.LayoutParams.MATCH_PARENT;
         mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -131,12 +143,12 @@ public class ActivityDialog implements DialogInterface {
         return this;
     }
 
-    public ActivityDialog Adapter(DialogAdapter adapter) {
-        if (mAdapter != null) {
-            mAdapter.unbindDialog();
+    public ActivityDialog ViewBinder(ViewBinder binder) {
+        if (mViewBinder != null) {
+            mViewBinder.unbindDialog();
         }
-        mAdapter = adapter;
-        mAdapter.bindDialog(this);
+        mViewBinder = binder;
+        mViewBinder.bindDialog(this);
         return this;
     }
 
@@ -211,7 +223,7 @@ public class ActivityDialog implements DialogInterface {
 
         mIsCanceled = false;
 
-        if (mAdapter == null) {
+        if (mViewBinder == null) {
             throw new IllegalArgumentException("adapter can not be null");
         }
 
@@ -279,11 +291,11 @@ public class ActivityDialog implements DialogInterface {
         return mIsShowing;
     }
 
-    void bindHost(Activity host) {
+    /*package*/ void bindHost(HostActivity host) {
         mHost = host;
     }
 
-    void unbindHost() {
+    /*package*/ void unbindHost() {
         mHost = null;
     }
 
@@ -302,6 +314,26 @@ public class ActivityDialog implements DialogInterface {
     private void sendCancelMessage() {
         if (mCancelMessage != null) {
             Message.obtain(mCancelMessage).sendToTarget();
+        }
+    }
+
+    public ActivityDialog setContentView(int layoutResId) {
+        mLayoutResId = layoutResId;
+        mContentView = null;
+        requestRefreshHostContentView();
+        return this;
+    }
+
+    public ActivityDialog setContentView(View contentView) {
+        mContentView = contentView;
+        mLayoutResId = -1;
+        requestRefreshHostContentView();
+        return this;
+    }
+
+    private void requestRefreshHostContentView() {
+        if (mHost != null) {
+            mHost.refreshContentView();
         }
     }
 

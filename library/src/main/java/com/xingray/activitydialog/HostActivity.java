@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,8 @@ import android.view.WindowManager;
 public class HostActivity extends Activity {
     public static final String CODE = "code";
 
-    private LayoutInflater mInflater;
     private ActivityDialog mDialog;
+    private Context mContext;
 
     static void showDialog(Context context, long code) {
         Intent intent = new Intent();
@@ -47,24 +46,55 @@ public class HostActivity extends Activity {
     private boolean isParamsValid(Intent intent) {
         long code = intent.getLongExtra(CODE, -1);
         mDialog = DialogManager.getInstance().get(code);
-        return mDialog != null && mDialog.isShowing();
+        if (mDialog == null) {
+            return false;
+        }
+        //noinspection SimplifiableIfStatement
+        if (mDialog.mLayoutResId == -1 && mDialog.mContentView == null) {
+            return false;
+        }
+        return mDialog.isShowing();
     }
 
     private void initVariables() {
+        mContext = getApplicationContext();
         mDialog.bindHost(this);
-        mInflater = LayoutInflater.from(getApplicationContext());
     }
 
     private void initView() {
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
-
         setFinishOnTouchOutside(mDialog.mCancelable);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mDialog.mWidth, mDialog.mHeight);
-        View rootView = mInflater.inflate(mDialog.mAdapter.getLayoutId(), null, false);
-        setContentView(rootView, layoutParams);
-        mDialog.mAdapter.bindView(rootView);
+
+        refreshContentView();
+    }
+
+    public void refreshContentView() {
+        ActivityDialog dialog = mDialog;
+        if (dialog == null) {
+            throw new IllegalStateException("ActivityDialog can not be null");
+        }
+
+        ViewBinder binder = dialog.mViewBinder;
+        if (binder == null) {
+            throw new IllegalStateException("ViewBinder of ActivityDialog can not be null, must invoke ViewBinder() before show dialog");
+        }
+
+        if (dialog.mLayoutResId > 0) {
+            binder.setContentView(dialog.mLayoutResId);
+        } else {
+            binder.setContentView(dialog.mContentView);
+        }
+
+        View contentView = binder.inflateContentView(mContext);
+        if (contentView == null) {
+            throw new IllegalStateException("can not inflate view");
+        }
+
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(dialog.mWidth, dialog.mHeight);
+        setContentView(contentView, layoutParams);
+        binder.bindView(contentView);
     }
 
     @Override

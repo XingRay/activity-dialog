@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xingray.activitydialog.ActivityDialog;
-import com.xingray.activitydialog.DialogAdapter;
+import com.xingray.activitydialog.ViewBinder;
 
 
 /**
@@ -57,15 +57,11 @@ public class DialogActivityTestService extends Service {
                 .width(ViewGroup.LayoutParams.MATCH_PARENT)
                 .height(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .priority(10)
-                .Adapter(new DialogAdapter() {
-                    @Override
-                    protected int getLayoutId() {
-                        return R.layout.layout_dialog_alert;
-                    }
-
+                .setContentView(R.layout.layout_dialog_alert)
+                .ViewBinder(new ViewBinder() {
                     @Override
                     protected void bindView(View rootView) {
-                        TextView tvMsg = (TextView)rootView.findViewById(R.id.tv_msg);
+                        TextView tvMsg = (TextView) rootView.findViewById(R.id.tv_msg);
                         tvMsg.setText("test01 in service");
 
                         TextView tvConfirm = (TextView) rootView.findViewById(R.id.tv_confirm);
@@ -112,5 +108,4 @@ public class DialogActivityTestService extends Service {
         Log.i(TAG, "onDestroy");
         super.onDestroy();
     }
-
 }

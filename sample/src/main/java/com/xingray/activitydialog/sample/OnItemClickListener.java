@@ -8,7 +8,7 @@ import android.view.View;
  * Email       : leixing1012@gmail.cn
  * Version     : 0.0.1
  * <p>
- * Description : 条目点击事件接口
+ * Description : item click listener for RecyclerView
  */
 
 public interface OnItemClickListener {

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * Description : user for generate unique code as long type.
  */
 
-public class CodeGenerator {
+/*package*/ class CodeGenerator {
     private static volatile CodeGenerator INSTANCE;
 
     /**

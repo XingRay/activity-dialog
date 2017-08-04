@@ -1,9 +1,9 @@
-package com.xingray.activitydialog.sample.adapters;
+package com.xingray.activitydialog.sample.binders;
 
 import android.view.View;
 import android.widget.TextView;
 
-import com.xingray.activitydialog.DialogAdapter;
+import com.xingray.activitydialog.ViewBinder;
 import com.xingray.activitydialog.sample.R;
 
 
@@ -17,7 +17,7 @@ import com.xingray.activitydialog.sample.R;
  */
 
 @SuppressWarnings({"WeakerAccess", "RedundantCast"})
-public class TitleContentTwoButtonDialogAdapter extends DialogAdapter {
+public class TitleContentTwoButtonViewBinder extends ViewBinder {
 
     private CharSequence mTitle;
     private CharSequence mContent;
@@ -26,9 +26,8 @@ public class TitleContentTwoButtonDialogAdapter extends DialogAdapter {
     private View.OnClickListener mLeftListener;
     private View.OnClickListener mRightListener;
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.dialog_activity_title_content_two_button;
+    public TitleContentTwoButtonViewBinder() {
+        setContentView(R.layout.dialog_activity_title_content_two_button);
     }
 
     @Override
@@ -64,32 +63,32 @@ public class TitleContentTwoButtonDialogAdapter extends DialogAdapter {
         });
     }
 
-    public TitleContentTwoButtonDialogAdapter title(CharSequence title) {
+    public TitleContentTwoButtonViewBinder title(CharSequence title) {
         mTitle = title;
         return this;
     }
 
-    public TitleContentTwoButtonDialogAdapter content(CharSequence content) {
+    public TitleContentTwoButtonViewBinder content(CharSequence content) {
         mContent = content;
         return this;
     }
 
-    public TitleContentTwoButtonDialogAdapter leftText(CharSequence leftButtonText) {
+    public TitleContentTwoButtonViewBinder leftText(CharSequence leftButtonText) {
         mLeftText = leftButtonText;
         return this;
     }
 
-    public TitleContentTwoButtonDialogAdapter rightText(CharSequence rightButtonText) {
+    public TitleContentTwoButtonViewBinder rightText(CharSequence rightButtonText) {
         mRightText = rightButtonText;
         return this;
     }
 
-    public TitleContentTwoButtonDialogAdapter leftListener(View.OnClickListener listener) {
+    public TitleContentTwoButtonViewBinder leftListener(View.OnClickListener listener) {
         mLeftListener = listener;
         return this;
     }
 
-    public TitleContentTwoButtonDialogAdapter rightListener(View.OnClickListener listener) {
+    public TitleContentTwoButtonViewBinder rightListener(View.OnClickListener listener) {
         mRightListener = listener;
         return this;
     }

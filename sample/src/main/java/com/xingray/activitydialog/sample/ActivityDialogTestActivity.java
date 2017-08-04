@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 
 /**
@@ -19,8 +19,8 @@ import android.widget.TextView;
  */
 
 public class ActivityDialogTestActivity extends Activity implements View.OnClickListener {
-    TextView tvTest01;
-    TextView tvTest02;
+    Button btTest01;
+    Button bvTest02;
     private Context mContext;
 
     @Override
@@ -28,7 +28,6 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
         super.onCreate(savedInstanceState);
         initVariables();
         initView();
-        loadData();
     }
 
     protected void initVariables() {
@@ -39,18 +38,11 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
     protected void initView() {
         setContentView(R.layout.activity_dialog_activity_test);
 
-        tvTest01 = (TextView) findViewById(R.id.tv_test01);
-        tvTest01.setOnClickListener(this);
-        tvTest02 = (TextView) findViewById(R.id.tv_test02);
-    }
+        btTest01 = (Button) findViewById(R.id.bt_test01);
+        btTest01.setOnClickListener(this);
 
-    protected void loadData() {
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        bvTest02 = (Button) findViewById(R.id.bt_test02);
+        bvTest02.setOnClickListener(this);
     }
 
     private void startTestService() {
@@ -61,9 +53,9 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        if (view == tvTest01) {
+        if (view == btTest01) {
             test01();
-        } else if (view == tvTest02) {
+        } else if (view == bvTest02) {
             test02();
         }
     }
@@ -73,6 +65,6 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
     }
 
     private void test02() {
-
+        // TODO: 2017-08-04 show dialog here
     }
 }

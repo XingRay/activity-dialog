@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             Toast.makeText(mContext, "item is null, id:" + id, Toast.LENGTH_SHORT).show();
             return;
         }
-
         function.exec(this);
     }
 

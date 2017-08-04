@@ -1,9 +1,9 @@
-package com.xingray.activitydialog.sample.adapters;
+package com.xingray.activitydialog.sample.binders;
 
 import android.view.View;
 import android.widget.TextView;
 
-import com.xingray.activitydialog.DialogAdapter;
+import com.xingray.activitydialog.ViewBinder;
 import com.xingray.activitydialog.sample.R;
 
 
@@ -17,17 +17,12 @@ import com.xingray.activitydialog.sample.R;
  */
 
 @SuppressWarnings({"WeakerAccess", "RedundantCast"})
-public class ProgressDialogAdapter extends DialogAdapter {
+public class ProgressViewBinder extends ViewBinder {
 
     private CharSequence mContent;
 
-    public ProgressDialogAdapter() {
-        super();
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.dialog_fragment_progress_dialog;
+    public ProgressViewBinder() {
+        setContentView(R.layout.dialog_fragment_progress_dialog);
     }
 
     @Override
@@ -36,7 +31,7 @@ public class ProgressDialogAdapter extends DialogAdapter {
         textView.setText(mContent);
     }
 
-    public ProgressDialogAdapter content(CharSequence text) {
+    public ProgressViewBinder content(CharSequence text) {
         mContent = text;
         return this;
     }
