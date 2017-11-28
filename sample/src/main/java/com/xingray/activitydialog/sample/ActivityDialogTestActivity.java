@@ -20,7 +20,6 @@ import android.widget.Button;
 
 public class ActivityDialogTestActivity extends Activity implements View.OnClickListener {
     Button btTest01;
-    Button bvTest02;
     private Context mContext;
 
     @Override
@@ -40,9 +39,6 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
 
         btTest01 = (Button) findViewById(R.id.bt_test01);
         btTest01.setOnClickListener(this);
-
-        bvTest02 = (Button) findViewById(R.id.bt_test02);
-        bvTest02.setOnClickListener(this);
     }
 
     private void startTestService() {
@@ -55,16 +51,10 @@ public class ActivityDialogTestActivity extends Activity implements View.OnClick
     public void onClick(View view) {
         if (view == btTest01) {
             test01();
-        } else if (view == bvTest02) {
-            test02();
         }
     }
 
     private void test01() {
         startTestService();
-    }
-
-    private void test02() {
-        // TODO: 2017-08-04 show dialog here
     }
 }

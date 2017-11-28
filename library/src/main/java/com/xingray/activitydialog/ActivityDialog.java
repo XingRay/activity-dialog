@@ -88,6 +88,11 @@ public class ActivityDialog implements DialogInterface {
     private Message mCancelMessage;
     private Message mDismissMessage;
 
+    /**
+     * LifeCycleListener
+     */
+    /*package*/ LifeCycleListener mLifeCycleListener;
+
     public ActivityDialog(Context context) {
         if (context == null) {
             throw new IllegalArgumentException("context can not be null");
@@ -116,6 +121,11 @@ public class ActivityDialog implements DialogInterface {
         }
         mViewBinder = binder;
         mViewBinder.bindDialog(this);
+        return this;
+    }
+
+    public ActivityDialog lifeCycleListener(LifeCycleListener listener) {
+        mLifeCycleListener = listener;
         return this;
     }
 
@@ -179,6 +189,7 @@ public class ActivityDialog implements DialogInterface {
         }
 
         mIsCanceled = false;
+        mIsShowing = true;
 
         if (mViewBinder == null) {
             throw new IllegalArgumentException("adapter can not be null");
@@ -187,7 +198,6 @@ public class ActivityDialog implements DialogInterface {
         DialogManager.getInstance().put(mCode, this);
         HostActivity.showDialog(mContext, mCode);
         sendShowMessage();
-        mIsShowing = true;
     }
 
     @Override

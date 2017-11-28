@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xingray.activitydialog.ActivityDialog;
+import com.xingray.activitydialog.LifeCycleListener;
 import com.xingray.activitydialog.ViewBinder;
 
 
@@ -90,6 +92,42 @@ public class DialogActivityTestService extends Service {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         Log.i("test", "onCancel");
+                    }
+                })
+                .lifeCycleListener(new LifeCycleListener() {
+                    @Override
+                    public void onCreate(Bundle savedInstanceState) {
+                        Log.i("test", "onCreate");
+                    }
+
+                    @Override
+                    public void onStart() {
+                        Log.i("test", "onStart");
+                    }
+
+                    @Override
+                    public void onRestart() {
+                        Log.i("test", "onRestart");
+                    }
+
+                    @Override
+                    public void onResume() {
+                        Log.i("test", "onResume");
+                    }
+
+                    @Override
+                    public void onPause() {
+                        Log.i("test", "onPause");
+                    }
+
+                    @Override
+                    public void onStop() {
+                        Log.i("test", "onStop");
+                    }
+
+                    @Override
+                    public void onDestroy() {
+                        Log.i("test", "onDestroy");
                     }
                 })
                 .show();

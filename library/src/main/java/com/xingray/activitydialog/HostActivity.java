@@ -35,7 +35,7 @@ public class HostActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!isParamsValid(getIntent())) {
+        if (!isParamsValid(savedInstanceState)) {
             finish();
             return;
         }
@@ -43,7 +43,59 @@ public class HostActivity extends Activity {
         initView();
     }
 
-    private boolean isParamsValid(Intent intent) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mDialog.mLifeCycleListener != null) {
+            mDialog.mLifeCycleListener.onStart();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (mDialog.mLifeCycleListener != null) {
+            mDialog.mLifeCycleListener.onRestart();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDialog.mLifeCycleListener != null) {
+            mDialog.mLifeCycleListener.onResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mDialog.mLifeCycleListener != null) {
+            mDialog.mLifeCycleListener.onPause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mDialog.mLifeCycleListener != null) {
+            mDialog.mLifeCycleListener.onStop();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDialog != null) {
+            if (mDialog.mLifeCycleListener != null) {
+                mDialog.mLifeCycleListener.onDestroy();
+            }
+            mDialog.unbindHost();
+        }
+    }
+
+    private boolean isParamsValid(Bundle savedInstanceState) {
+        Intent intent = getIntent();
         long code = intent.getLongExtra(CODE, -1);
         mDialog = DialogManager.getInstance().get(code);
         if (mDialog == null) {
@@ -52,6 +104,9 @@ public class HostActivity extends Activity {
         //noinspection SimplifiableIfStatement
         if (mDialog.mLayoutResId == -1 && mDialog.mContentView == null) {
             return false;
+        }
+        if (mDialog.mLifeCycleListener != null) {
+            mDialog.mLifeCycleListener.onCreate(savedInstanceState);
         }
         return mDialog.isShowing();
     }
@@ -95,14 +150,6 @@ public class HostActivity extends Activity {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(dialog.mWidth, dialog.mHeight);
         setContentView(contentView, layoutParams);
         binder.bindView(contentView);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mDialog != null) {
-            mDialog.unbindHost();
-        }
     }
 
     @Override

@@ -13,15 +13,8 @@
         android:id="@+id/bt_test01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="test01"
-        android:textSize="20sp"/>
-
-    <Button
-        android:id="@+id/bt_test02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="test02"
-        android:textSize="20sp"/>
+        android:textSize="16sp"/>
 
 </LinearLayout>
