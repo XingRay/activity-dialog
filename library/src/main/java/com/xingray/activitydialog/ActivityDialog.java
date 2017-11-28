@@ -45,18 +45,6 @@ public class ActivityDialog implements DialogInterface {
     /*package*/ boolean mCancelable;
 
     /**
-     * priority of the dialog
-     * higher the value is, more chance the dialog has to show
-     */
-    private int mPriority;
-
-    /**
-     * name of the dialog, if two {@code ActivityDialog} have the same name, the later one will replace
-     * the previous one
-     */
-    private String mName;
-
-    /**
      * adapter for render UI by given data
      */
     /*package*/ ViewBinder mViewBinder;
@@ -70,16 +58,6 @@ public class ActivityDialog implements DialogInterface {
      * height of the dialog
      */
     /*package*/ int mHeight;
-
-    /**
-     * style of dialog
-     */
-    private int mStyle;
-
-    /**
-     * theme of dialog
-     */
-    private int mTheme;
 
     /**
      * is dialog showing
@@ -120,26 +98,15 @@ public class ActivityDialog implements DialogInterface {
 
         // default values
         mCancelable = true;
-        mPriority = 0;
         mLayoutResId = -1;
         mContentView = null;
-        mName = "";
         mWidth = ViewGroup.LayoutParams.MATCH_PARENT;
         mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public ActivityDialog cancelable(boolean cancelable) {
         mCancelable = cancelable;
-        return this;
-    }
-
-    public ActivityDialog priority(int priority) {
-        mPriority = priority;
-        return this;
-    }
-
-    public ActivityDialog name(String name) {
-        mName = name;
         return this;
     }
 
@@ -159,16 +126,6 @@ public class ActivityDialog implements DialogInterface {
 
     public ActivityDialog height(int height) {
         mHeight = height;
-        return this;
-    }
-
-    public ActivityDialog style(int style) {
-        mStyle = style;
-        return this;
-    }
-
-    public ActivityDialog theme(int theme) {
-        mTheme = theme;
         return this;
     }
 
@@ -287,6 +244,7 @@ public class ActivityDialog implements DialogInterface {
         dismiss();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public boolean isShowing() {
         return mIsShowing;
     }
@@ -324,6 +282,7 @@ public class ActivityDialog implements DialogInterface {
         return this;
     }
 
+    @SuppressWarnings("unused")
     public ActivityDialog setContentView(View contentView) {
         mContentView = contentView;
         mLayoutResId = -1;
@@ -340,7 +299,7 @@ public class ActivityDialog implements DialogInterface {
     private static final class ListenerHandler extends Handler {
         private WeakReference<DialogInterface> mDialog;
 
-        public ListenerHandler(DialogInterface dialog) {
+        private ListenerHandler(DialogInterface dialog) {
             super(Looper.getMainLooper());
             mDialog = new WeakReference<>(dialog);
         }

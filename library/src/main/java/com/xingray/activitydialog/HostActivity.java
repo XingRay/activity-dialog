@@ -100,7 +100,9 @@ public class HostActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mDialog.unbindHost();
+        if (mDialog != null) {
+            mDialog.unbindHost();
+        }
     }
 
     @Override

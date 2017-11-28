@@ -53,10 +53,8 @@ public class DialogActivityTestService extends Service {
     private void test01() {
         new ActivityDialog(this.getApplicationContext())
                 .cancelable(true)
-                .name("test")
                 .width(ViewGroup.LayoutParams.MATCH_PARENT)
                 .height(ViewGroup.LayoutParams.WRAP_CONTENT)
-                .priority(10)
                 .setContentView(R.layout.layout_dialog_alert)
                 .ViewBinder(new ViewBinder() {
                     @Override

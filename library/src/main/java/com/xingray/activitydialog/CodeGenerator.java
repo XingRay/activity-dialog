@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
      */
     private AtomicLong mCode;
 
-    public static CodeGenerator getInstance() {
+    static CodeGenerator getInstance() {
         if (INSTANCE == null) {
             synchronized (CodeGenerator.class) {
                 if (INSTANCE == null) {
@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicLong;
      *
      * @return code
      */
-    public long next() {
+    long next() {
         return mCode.getAndAdd(1);
     }
 }

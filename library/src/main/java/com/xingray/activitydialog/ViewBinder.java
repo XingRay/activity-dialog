@@ -19,6 +19,7 @@ public abstract class ViewBinder {
     private int mLayoutResId;
     private LayoutInflater mInflater;
 
+    @SuppressWarnings("WeakerAccess")
     public ViewBinder() {
     }
 

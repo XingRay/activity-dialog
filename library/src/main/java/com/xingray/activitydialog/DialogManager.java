@@ -46,7 +46,9 @@ import java.util.Map;
      * @param code   unique code for {@link ActivityDialog}
      * @param dialog dialog to save
      */
-    /*package*/ ActivityDialog put(long code, ActivityDialog dialog) {
+    /*package*/
+    @SuppressWarnings("UnusedReturnValue")
+    ActivityDialog put(long code, ActivityDialog dialog) {
         synchronized (mDialogs) {
             return mDialogs.put(code, dialog);
         }
@@ -70,7 +72,9 @@ import java.util.Map;
      * @param code unique code for {@link ActivityDialog}
      * @return previous {@link ActivityDialog} saved by the {@code code}
      */
-    /*package*/ ActivityDialog remove(long code) {
+    /*package*/
+    @SuppressWarnings("UnusedReturnValue")
+    ActivityDialog remove(long code) {
         synchronized (mDialogs) {
             return mDialogs.remove(code);
         }

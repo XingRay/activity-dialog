@@ -8,3 +8,7 @@
 .idea/workspace.xml
 build/
 local.properties
+library/src/androidTest/
+library/src/test/
+sample/src/androidTest/
+sample/src/test/
