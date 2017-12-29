@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Author      : leixing
  * Date        : 2017-02-20
@@ -87,6 +90,7 @@ public class HostActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         if (mDialog != null) {
+            mDialog.mIsViewValid = false;
             if (mDialog.mLifeCycleListener != null) {
                 mDialog.mLifeCycleListener.onDestroy();
             }
@@ -150,6 +154,21 @@ public class HostActivity extends Activity {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(dialog.mWidth, dialog.mHeight);
         setContentView(contentView, layoutParams);
         binder.bindView(contentView);
+        dialog.mIsViewValid = true;
+        executeTasks(dialog);
+    }
+
+    private void executeTasks(ActivityDialog dialog) {
+        List<Runnable> tasks = dialog.mTasks;
+        if (tasks == null) {
+            return;
+        }
+        Iterator<Runnable> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Runnable task = iterator.next();
+            task.run();
+            iterator.remove();
+        }
     }
 
     @Override

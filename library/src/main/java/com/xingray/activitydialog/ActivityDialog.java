@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author      : leixing
@@ -92,6 +94,8 @@ public class ActivityDialog implements DialogInterface {
      * LifeCycleListener
      */
     /*package*/ LifeCycleListener mLifeCycleListener;
+    /*package*/ List<Runnable> mTasks;
+    /*package*/ boolean mIsViewValid;
 
     public ActivityDialog(Context context) {
         if (context == null) {
@@ -115,7 +119,7 @@ public class ActivityDialog implements DialogInterface {
         return this;
     }
 
-    public ActivityDialog ViewBinder(ViewBinder binder) {
+    public ActivityDialog viewBinder(ViewBinder binder) {
         if (mViewBinder != null) {
             mViewBinder.unbindDialog();
         }
@@ -252,6 +256,19 @@ public class ActivityDialog implements DialogInterface {
         }
 
         dismiss();
+    }
+
+    @SuppressWarnings("unused")
+    public ActivityDialog runOnViewValid(Runnable task) {
+        if (mIsViewValid) {
+            mHost.runOnUiThread(task);
+        } else {
+            if (mTasks == null) {
+                mTasks = new ArrayList<>();
+            }
+            mTasks.add(task);
+        }
+        return this;
     }
 
     @SuppressWarnings("WeakerAccess")

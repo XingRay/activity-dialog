@@ -58,7 +58,7 @@ public class DialogActivityTestService extends Service {
                 .width(ViewGroup.LayoutParams.MATCH_PARENT)
                 .height(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .setContentView(R.layout.layout_dialog_alert)
-                .ViewBinder(new ViewBinder() {
+                .viewBinder(new ViewBinder() {
                     @Override
                     protected void bindView(View rootView) {
                         TextView tvMsg = (TextView) rootView.findViewById(R.id.tv_msg);
